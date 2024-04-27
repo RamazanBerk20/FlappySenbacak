@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Score : MonoBehaviour
 {
+    [SerializeField]
     private Bird bird;
     private int score;
     private TextMeshProUGUI textMeshPro;

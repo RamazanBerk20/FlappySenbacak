@@ -6,8 +6,23 @@ public class Spawner : MonoBehaviour
     public GameObject pipe;
     public float height;
     public float timeToSpawn = 3f;
+    public float spawnRate = .002f;
+    [SerializeField]
     private Bird bird;
     private bool isBirdDead;
+
+    private void IncreaseSpawnRate()
+    {
+        if(timeToSpawn > .75)
+        {
+            timeToSpawn -= spawnRate * Time.deltaTime;
+        }
+    }
+
+    void Update()
+    {
+        IncreaseSpawnRate();
+    }
 
     private void Awake()
     {

@@ -9,16 +9,11 @@ public class Bird : MonoBehaviour
     public AudioClip scoreSound;
     public int score = 0;
     public bool isDead;
+    [SerializeField]
     private Rigidbody2D rb2D;
     private AudioSource audioSource;
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-        rb2D = GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
+    private void AliveState()
     {
         if (Input.GetMouseButtonDown(0) && !isDead)
         {
@@ -31,27 +26,51 @@ public class Bird : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void DeathState(Collision2D collision)
     {
-        isDead = true;
+        if(collision.transform.CompareTag("Death"))
+        {
+            isDead = true;
+        }
 
         if(hitSound != null)
         {
-            audioSource?.PlayOneShot(hitSound);
+            audioSource.PlayOneShot(hitSound);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void ScoreUp(Collider2D collision)
     {
-        if(collision.CompareTag("ScoreUp"))
+        if (collision.CompareTag("ScoreUp"))
         {
             score += 1;
 
-            if(scoreSound != null)
+            if (scoreSound != null)
             {
                 audioSource.PlayOneShot(scoreSound);
             }
         }
+    }
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        rb2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        AliveState();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        DeathState(collision);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ScoreUp(collision);
     }
 
 }

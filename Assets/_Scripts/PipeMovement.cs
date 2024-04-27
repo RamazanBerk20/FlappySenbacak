@@ -6,6 +6,7 @@ public class PipeMovement : MonoBehaviour
 {
     public float velocity = 3f;
     public float destroyTime = 10f;
+    [SerializeField]
     private Bird bird;
     private bool isBirdAlive;
 

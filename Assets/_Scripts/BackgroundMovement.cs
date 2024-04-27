@@ -4,6 +4,7 @@ using UnityEngine;
 public class BackgroundMovement : MonoBehaviour
 {
     public float speed = 3f;
+    [SerializeField]
     private Bird bird;
     private float offset;
     private Renderer backgroundRenderer;
